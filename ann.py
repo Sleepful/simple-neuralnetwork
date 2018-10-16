@@ -1,11 +1,5 @@
 import numpy as np
 
-def sigmoid(x):
-    return round(1.0/(1+ np.exp(-x)),5)
-
-def sigmoid_derivative(x):
-    return x * (1.0 - x)
-
 class TrainingGrounds:
     def __init__(self, m, b):
         self.m          = m #entre -10 y 10
