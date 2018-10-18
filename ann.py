@@ -6,8 +6,10 @@ from matplotlib import pyplot as plt
 #################
 coordLim = 100  # Define the limit of the graphic
 plt.isinteractive()
-pointsX = []
-pointsY = []
+abovepointsX = []
+abovepointsY = []
+belowpointsX = []
+belowpointsY = []
 linePointsX = []
 linePointsY = []
 
@@ -15,7 +17,7 @@ linePointsY = []
 # receive the beginning and the    #
 # destiny of the line and print it #
 ####################################
-def printLine(cord1, cord2, lineCord1, lineCord2):
+def printLine(abovecord1, abovecord2, belowcord1, belowcord2, lineCord1, lineCord2):
     #pointx = np.linspace(cord1[0], cord2[0])
     #pointy = np.linspace(cord1[1], cord2[1])
     plt.axhline(0, color="red")    #draw a red line that divide X axis
@@ -23,7 +25,9 @@ def printLine(cord1, cord2, lineCord1, lineCord2):
 
     plt.xlim(-coordLim,coordLim)
     plt.ylim(-coordLim,coordLim)
-    plt.plot(cord1, cord2, "go", lineCord1, lineCord2, "r-")
+    plt.plot(lineCord1, lineCord2, "r-")
+    plt.plot(abovecord1, abovecord2, "go")
+    plt.plot(belowcord1, belowcord2, "ro")
     plt.show()      #use .draw() when time pause is enabled
 
     #plt.pause(0.5) #tiempo de espera para que muestre la imagen
@@ -75,15 +79,15 @@ class Perceptron(object):
 
 
 if __name__ == "__main__":
-    m = 1
-    b = 2
+    m = 2
+    b = 3
     trainer = TrainingGrounds(m,b)
     x = trainer.dot
     y = trainer.C
 
     percept = Perceptron(2)
 
-    for i in range(1000):
+    for i in range(25):
         trainer.generate_new_dot()
 
         X = trainer.dot
@@ -92,22 +96,29 @@ if __name__ == "__main__":
         percept.fit(X, d)
 
 
-    for i in range(20):
+    for i in range(90):
         trainer.generate_new_dot()
 
         X = trainer.dot
         d = trainer.C
 
-        pointsX.append(int(X[0]))
-        pointsY.append(int(X[1]))
+        #pointsX.append(int(X[0]))
+        #pointsY.append(int(X[1]))
 
-        y = m*pointsX[i]+b      #finds the points in Y axis of the dividing line
+        y = m*X[0]+b      #finds the points in Y axis of the dividing line
+
+        p = percept.predict(X)
 
         linePointsX.append(m*int(X[0]))
         linePointsY.append(y)
 
-        p = percept.predict(X)
+        if(p==1):
+            abovepointsX.append(X[0])
+            abovepointsY.append(X[1])
+        if(p==0):
+            belowpointsX.append(X[0])
+            belowpointsY.append(X[1])
 
-        print("Point ", pointsX[i], ",", pointsY[i], " -- predict ", p, " answer ", d)
+        print("Point ", X[0], ",", X[1], " -- predict ", p, " answer ", d)
 
-    printLine(pointsX, pointsY, linePointsX, linePointsY)   #print the graphic with all elements
+    printLine(abovepointsX, abovepointsY, belowpointsX, belowpointsY, linePointsX, linePointsY)   #print the graphic with all elements
