@@ -79,15 +79,15 @@ class Perceptron(object):
 
 
 if __name__ == "__main__":
-    m = 2
-    b = 3
+    m = 3
+    b = 10
     trainer = TrainingGrounds(m,b)
     x = trainer.dot
     y = trainer.C
 
     percept = Perceptron(2)
 
-    for i in range(25):
+    for i in range(999):
         trainer.generate_new_dot()
 
         X = trainer.dot
@@ -96,7 +96,7 @@ if __name__ == "__main__":
         percept.fit(X, d)
 
 
-    for i in range(90):
+    for i in range(220):
         trainer.generate_new_dot()
 
         X = trainer.dot
