@@ -1,5 +1,5 @@
 # simple-neuralnetwork
 school work
 
-* ann.py = tarea 1, clasificacion lineal
-* sine.py = tarea 2, el del seno(x)
+* ann.py = Linear classification, approximates a given line in a plane by looking at a dataset of dots classified as being below or above the line, afterwards it is able to classify new dats
+* sine.py = Similar as the previous one, this one uses tenserflow and it can approximate the sine function on a plane given a dataset of dots
